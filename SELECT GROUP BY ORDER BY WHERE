@@ -1,0 +1,125 @@
+-- WHERE
+
+-- 1. Todas os produtos (codigo, nome, valor de venda) com unidade de medida Kg;
+SELECT codigo, nome, valor_unitario FROM produto WHERE unidade_de_medida='Kg';
+
+-- 2. Todos os produtos (codigo, nome, valor de venda) vendidos por João Frutas; 
+SELECT codigo, nome, valor_unitario FROM produto WHERE fornecedor='João Frutas';
+SELECT codigo, nome, valor_unitario FROM produto WHERE fornecedor LIKE 'João%';
+SELECT codigo, nome, valor_unitario FROM produto WHERE fornecedor LIKE 'Jo%o%';
+SELECT codigo, nome, valor_unitario FROM produto WHERE fornecedor ILIKE 'jo%%%';
+
+-- 3. Todos os produtos (todas as colunas) que custam até R$ 10,00; 
+SELECT * FROM produto WHERE valor_unitario <= 10;
+
+-- 4. Todos os produtos (codigo, nome, valor de venda) que custam entre R$ 5,00 e R$ 10,00 ;
+SELECT codigo, nome, valor_unitario FROM produto WHERE valor_unitario BETWEEN 5 AND 10;
+
+-- 5. Todas os produtos (todas as colunas) cuja última venda ocorreu entre 13/05/2022 e hoje;
+SELECT * FROM produto WHERE ultima_venda BETWEEN '2022-05-13' AND CURRENT_DATE;
+
+-- 6. Todos os produtos (codigo, nome, valor de venda) do tipo Higiêne pessoal que custam até R$ 15,00; 
+SELECT codigo, nome, valor_unitario FROM produto WHERE tipo LIKE 'Hig%' AND valor_unitario <= 15;
+
+-- 7. Todos os produtos (codigo, nome, valor de venda) que não possuem altura; 
+SELECT codigo, nome, valor_unitario FROM produto WHERE altura = 0;
+
+-- 8. Todos os produtos (Todas as colunas) do tipo Un que possuem 10 ou menos unidades no estoque. 
+SELECT * FROM produto WHERE unidade_de_medida = 'Un' AND estoque <= 10;
+
+
+-- ORDER BY 
+
+
+--9. Todos os produtos ordenados pelo código; 
+SELECT * FROM produto ORDER BY codigo;
+
+-- 10. Todos os produtos Hortifruti ordenados pelo valor; 
+SELECT * FROM produto WHERE tipo LIKE 'Horti%' ORDER BY valor_unitario; 
+SELECT * FROM produto WHERE tipo LIKE 'Horti%' ORDER BY valor_unitario ASC; -- CRESCETE
+SELECT * FROM produto WHERE tipo LIKE 'Horti%' ORDER BY valor_unitario DESC; -- DECRESCENTE
+
+-- 11. Todos os produtos ordenados pela Unidade de medida; 
+SELECT * FROM produto ORDER BY unidade_de_medida;
+
+-- 12. Todos os produtos ordenados vendidos na última semana, ordenados pelo tipo; 
+SELECT * FROM produto WHERE ultima_venda >= '2022-06-13' ORDER BY tipo;
+
+-- 13. Todos os produtos ordenados do menor valor para o maior; 
+SELECT * FROM produto ORDER BY valor_unitario ASC;
+
+-- 14. Todos os produtos do fornecedor João Frutas, comprados na semana passada, ordenados pela data da compra.
+SELECT * FROM produto WHERE fornecedor ILIKE 'jo%o%' AND ultima_venda >= '2022-06-13' ORDER BY ultima_compra;
+
+--AGREGAÇÃO/GROUP BY 
+
+-- 15. Total de produtos; 
+SELECT COUNT(*) FROM produto;
+
+-- 16. Total de produtos por fornecedor; 
+SELECT fornecedor, COUNT(*) FROM produto GROUP BY fornecedor ORDER BY fornecedor;
+SELECT fornecedor, COUNT(*) as quantidade FROM produto GROUP BY fornecedor ORDER BY COUNT(*)DESC;
+SELECT fornecedor, COUNT(*) as quantidade FROM produto GROUP BY fornecedor ORDER BY 1 DESC;
+
+-- 17. Total de produtos por tipo; 
+SELECT tipo, COUNT(*) FROM produto GROUP BY tipo;
+
+-- 18. Total de produtos vendidos por dia; 
+SELECT ultima_venda, COUNT(*) FROM produto GROUP BY ultima_venda;
+
+-- 19. Média de produtos comprados por dia; 
+SELECT AVG(valor_unitario), ultima_compra FROM produto GROUP BY ultima_compra ORDER BY ultima_compra;
+SELECT AVG(valor_unitario)::numeric(11,2), ultima_compra FROM produto GROUP BY ultima_compra ORDER BY ultima_compra;
+
+-- 20. Valor total do estoque dos produtos vendidos a Kg; 
+SELECT SUM(valor_unitario * estoque), unidade_de_medida FROM produto WHERE unidade_de_medida ILIKE 'kg' GROUP BY unidade_de_medida;
+
+-- 21. Valor total do estoque de produtos vendido por Un; 
+SELECT SUM(valor_unitario * estoque), unidade_de_medida FROM produto WHERE unidade_de_medida ILIKE 'un' GROUP BY unidade_de_medida;
+
+-- 22. Valor total por unidade de medida; 
+SELECT unidade_de_medida, SUM(valor_unitario * estoque) FROM produto GROUP BY unidade_de_medida;
+
+-- 23. Maior valor de venda; 
+SELECT MAX(valor_unitario) FROM produto;
+SELECT nome, valor_unitario FROM produto ORDER BY valor_unitario DESC LIMIT 1;
+
+-- 24. Menor valor de venda; 
+SELECT MIN(valor_unitario) FROM produto;
+SELECT nome, valor_unitario FROM produto ORDER BY valor_unitario ASC LIMIT 1;
+
+-- 25. Total de produtos cujo valor de venda é superior a R$ 10,00. 
+SELECT COUNT(*) FROM produto WHERE valor_unitario > 10;
+
+
+-- CASE WHEN
+
+
+-- 26. Apresentar unidade "Por quilo" quando unidade de medida for Kg; 
+SELECT codigo, nome, CASE WHEN unidade_de_medida = 'Kg' THEN 'Por Quilo' ELSE unidade_de_medida END FROM produto;
+SELECT codigo, nome, CASE WHEN unidade_de_medida = 'Kg' THEN 'Por Quilo' WHEN unidade_de_medida = 'Un' THEN 'Por unidade' END FROM produto;
+
+-- 27. Apresentar unidade "Por unidade" quando unidade de medida for Un;
+SELECT codigo, nome, CASE WHEN unidade_de_medida = 'Un' THEN 'Por Unidade' ELSE unidade_de_medida END FROM produto;
+SELECT codigo, nome, CASE WHEN unidade_de_medida = 'Kg' THEN 'Por Quilo' WHEN unidade_de_medida = 'Un' THEN 'Por unidade' END FROM produto;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+//TABLES -----------------------------------------
+
+
+//tabela mercado
+CREATE TABLE mercado (cnpj CHAR(18) NOT NULL PRIMARY KEY, razao_social VARCHAR(255) NOT NULL, rua VARCHAR(255) NOT NULL, numero INTEGER NOT NULL, complemento VARCHAR(255), cep CHAR(9) NOT NULL, cidade VARCHAR(255) NOT NULL, estado CHAR(2) NOT NULL, telefone VARCHAR(255));
+
+//tabela atendente
+CREATE TABLE atendente (codigo INTEGER NOT NULL PRIMARY KEY, nome VARCHAR(200) NOT NULL, telefone VARCHAR(255), rua VARCHAR(255) NOT NULL, numero INTEGER NOT NULL, complemento VARCHAR(255), cidade VARCHAR(255) NOT NULL, estado CHAR(2) NOT NULL, data_nascimento DATE NOT NULL, cpf CHAR(14), rg VARCHAR(15), numero_pis CHAR(14));
+
+//tabela produto
+CREATE TABLE produto (codigo INTEGER NOT NULL PRIMARY KEY, nome VARCHAR(255) NOT NULL, nome_compacto VARCHAR(24) NOT NULL, unidade_de_medida VARCHAR(3) NOT NULL, valor_unitario DECIMAL(5,3) NOT NULL, cor VARCHAR(255) NOT NULL, altura DECIMAL(4,2), largura DECIMAL(4,2), peso_bruto DECIMAL(4,2), peso_liquido DECIMAL(4,2));
+
+//INSERTS -----------------------------------------
+
+//insert em mercado 
+INSERT INTO mercado (cnpj, razao_social, rua, numero, complemento, cep, cidade, estado, telefone) VALUES ('91.156.471/0030-83', 'Importadora e Exportadora de Cereais SA', 'Avenida Benjamin Constant', 1758, 'Florestal', '95900-000', 'Lajeado', 'RS', '(51) 3714-6296');
+
+//insert em atendente
+INSERT INTO atendente (codigo, nome, telefone, rua, numero, complemento, cidade, estado, data_nascimento, cpf, rg, numero_pis) VALUES (1, 'Yuri Kerber Fernandes', '(51) 9528 5287', 'Alfredo Herber', 95, 'Casa', 'Bom Retiro do Sul', 'RS', '1999/05/08', '038.529.390-97', '811792899', '010203040506');
+
+//insert em produto
+INSERT INTO produto (codigo, nome, nome_compacto, unidade_de_medida, valor_unitario, cor, altura, largura, peso_bruto, peso_liquido) VALUES (1, 'Milho verde', 'Mlh Vrd', 'Kg', 14.99, 'amarelo', null, null, '1', 0.8);
+

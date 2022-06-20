@@ -1,0 +1,11 @@
+	PSQL
+
+\l = listar as bases;
+\c = conectar base;
+\d = listar tabelas;
+\d [tabela] = descreve a tabela;
+\? = help, comandos;
+
+psql -Upostgres -hlocalhost
+
+

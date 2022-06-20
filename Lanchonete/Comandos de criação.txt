@@ -1,0 +1,75 @@
+.: COMANDOS DE CRIAÇÃO DO BANCO DE DADOS DA LANCHONETE :.
+
+// conectar ao banco de dados PostgreSQL;
+psql -Upostgres -hlocalhost
+
+// criar o database para a lanchonete;
+CREATE DATABASE lanchonete;
+
+// conectar ao database da lanchonete;
+\c lanchonete
+
+// criar as tabelas;
+
+// tabela cliente;
+CREATE TABLE cliente (cpf CHAR(14) NOT NULL PRIMARY KEY, nome VARCHAR(255) NOT NULL, celular CHAR(12) NOT NULL, email VARCHAR(255), endereco VARCHAR(255) NOT NULL, wpp_no_nmr BOOLEAN NOT NULL, modo_entrega_pref VARCHAR(20), prdt_pref VARCHAR(43), data_cad DATE NOT NULL);
+
+// tabela produto;
+CREATE TABLE produto (codigo_de_barras VARCHAR(43) NOT NULL PRIMARY KEY, descricao VARCHAR(255) NOT NULL, quantidade INTEGER NOT NULL, preco DECIMAL(4,2) NOT NULL, data_cadastro DATE NOT NULL, estoque_min INTEGER NOT NULL);
+
+// tabela colaborador;
+CREATE TABLE colaborador (cpf CHAR(14) NOT NULL PRIMARY KEY, nome VARCHAR(255) NOT NULL, endereco VARCHAR(255) NOT NULL, salario DECIMAL(6,2) NOT NULL, cargo VARCHAR(45) NOT NULL, setor VARCHAR(45) NOT NULL, data_de_inicio DATE NOT NULL, celular CHAR(12) NOT NULL, email VARCHAR(255));
+
+// inserts na tabela cliente;
+// cliente 1;
+INSERT INTO cliente (cpf, nome, celular, email, endereco, wpp_no_nmr, modo_entrega_pref, prdt_pref, data_cad) VALUES ('575.488.235-17', 'Yuri Kerber Fernandes', '054999358928', 'yuri@email.com', 'Rua Alfredo Herber 95 Lajeado RS', true, 'retirada', '688697808', '2020/05/08');
+
+// cliente 2;
+INSERT INTO cliente (cpf, nome, celular, email, endereco, wpp_no_nmr, modo_entrega_pref, prdt_pref, data_cad) VALUES ('114.328.021-00', 'Juca Bala', '051995473247', 'juca@email.com', 'Rua Alberto Talini 404 Lajeado RS', true, 'entrega', '138105440', '2020/08/23');
+
+// cliente 3;
+INSERT INTO cliente (cpf, nome, celular, email, endereco, wpp_no_nmr, modo_entrega_pref, prdt_pref, data_cad) VALUES ('261.117.264-12', 'Amalia Rosa', '053997614425', 'amalia@email.com', 'Rua Benjamin Variavel 42 Lajeado RS', false, 'comer no local', '217568073', '2021/12/13');
+
+// cliente 4;
+INSERT INTO cliente (cpf, nome, celular, email, endereco, wpp_no_nmr, modo_entrega_pref, prdt_pref, data_cad) VALUES ('357.262.478-92', 'Alfredo Jordan', '051996160279', 'alfredo@email.com', 'Rua Armando Bento 1337 Lajeado RS', true, 'retirada', '460869980', '2021/02/28');
+
+// cliente 5;
+INSERT INTO cliente (cpf, nome, celular, email, endereco, wpp_no_nmr, modo_entrega_pref, prdt_pref, data_cad) VALUES ('575.795.887-14', 'Mixel Jaczon', '051972414848', 'mixel@email.com', 'Rua Florest Eden 1055 Lajeado RS', false, 'retirada', '548205460', '2019/07/18');
+
+// inserts tabela produto;
+// produto 1;
+INSERT INTO produto (codigo_de_barras, descricao, quantidade, preco, data_cadastro, estoque_min) VALUES ('688697808', 'Alaminuta M', 10, 11.90, '2018/05/02', 5);
+
+// produto 2;
+INSERT INTO produto (codigo_de_barras, descricao, quantidade, preco, data_cadastro, estoque_min) VALUES ('138105440', 'Pizza Broto', 16, 25.90, '2020/07/11', 6);
+
+// produto 3;
+INSERT INTO produto (codigo_de_barras, descricao, quantidade, preco, data_cadastro, estoque_min) VALUES ('217568073', 'Pastel', 7, 7.50, '2020/03/27', 10);
+
+// produto 4;
+INSERT INTO produto (codigo_de_barras, descricao, quantidade, preco, data_cadastro, estoque_min) VALUES ('460869980', 'Hamburger', 13, 27, '2020/11/7', 5);
+
+// produto 5;
+INSERT INTO produto (codigo_de_barras, descricao, quantidade, preco, data_cadastro, estoque_min) VALUES ('548205460', 'Batata Frita', 8, 15.60, '2020/09/30', 4);
+
+// inserts tabela colaborador;
+// colaborador 1;
+INSERT INTO colaborador (cpf, nome, endereco, salario, cargo, setor, data_de_inicio, celular, email) VALUES ('254.567.577-61', 'Fubur Sias', 'Rua dos Elfos 33 Eden', 1700.39, 'Cozinha', 'Ajudante de cozinha', '2021/03/20', '053971721674', 'fubur@email.com');
+
+// colaborador 2;
+INSERT INTO colaborador (cpf, nome, endereco, salario, cargo, setor, data_de_inicio, celular, email) VALUES ('596.777.551-02', 'Kuyki Weyde', 'Rua dos Canarios 683 Wakanda', 1958.9, 'Cozinha', 'Cozinheiro', '2021/05/22', '055971128264', 'kuyki@email.com');
+
+// colaborador 3;
+INSERT INTO colaborador (cpf, nome, endereco, salario, cargo, setor, data_de_inicio, celular, email) VALUES ('542.124.848-89', 'Cuiza Olhoe', 'Rua dos Fabulosos 800 Belforoxo', 1558.9, 'Administrativo', 'Caixa', '2022/08/02', '054997584458', 'cuiza@email.com');
+
+// colaborador 4;
+INSERT INTO colaborador (cpf, nome, endereco, salario, cargo, setor, data_de_inicio, celular, email) VALUES ('198.266.211-53', 'Doyge Andaaen', 'Rua Oswalvo 486 Estrela', 1358.9, 'Cozinha', 'Garçon', '2022/10/24', '051995480175', 'doyge@email.com');
+
+// colaborador 5;
+INSERT INTO colaborador (cpf, nome, endereco, salario, cargo, setor, data_de_inicio, celular, email) VALUES ('187.656.601-96', 'Fred Belt', 'Rua Lindner 20 Porto Alegre', 5358.9, 'Administrativo', 'Gerente', '2019/07/16', '051972197208', 'fred@email.com');
+
+
+
+
+
+
